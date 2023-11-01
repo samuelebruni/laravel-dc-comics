@@ -1,19 +1,26 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Comic;
 
-class UserPageController extends Controller
+class PageController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $comics = Comic::all();
+        return view('home', compact('comics'));
+    }
+
+    public function comics()
+    {
+        $comics = Comic::all();
+        return view('comics', compact('comics'));
     }
 
     /**
@@ -35,9 +42,9 @@ class UserPageController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Comic $comic)
     {
-        //
+        return view('home.details', compact('comic'));
     }
 
     /**
