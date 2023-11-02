@@ -6,7 +6,7 @@
 <section class=" my-4">
     <div class="container">
         <h4 class="text-muted text-uppercase">All Comics</h4>
-        <a class="btn btn-primary position-fixed bottom-0 end-0 m-4" href="{{ route('admin.create') }}">Add Comic</a>
+        <a class="btn btn-primary position-fixed bottom-0 end-0 m-4" href="{{ route('comics.create') }}">Add Comic</a>
 
 
         <div class="card">
@@ -35,7 +35,7 @@
                             <td>{{$comic->title}}</td>
                             <td>
 
-                                <a href="{{route('admin.show', $comic->id)}}" class="btn btn-primary">View</a>
+                                <a href="{{route('comics.show', $comic->id)}}" class="btn btn-primary">View</a>
 
                                 /Edit/Delete
                             </td>

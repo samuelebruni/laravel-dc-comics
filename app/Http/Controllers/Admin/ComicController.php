@@ -8,7 +8,7 @@ use App\Models\Comic;
 use Illuminate\Support\Facades\Storage;
 
 
-class AdminController extends Controller
+class ComicController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class AdminController extends Controller
     public function index()
     {
         $comics = Comic::all();
-        return view('admin.index', compact('comics'));
+        return view('admin.comics.index', compact('comics'));
     }
 
     /**
@@ -24,7 +24,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        return view('admin.create');
+        return view('admin.comics.create');
     }
 
     /**
@@ -44,7 +44,7 @@ class AdminController extends Controller
         
         $newComic->save();
 
-        return to_route('admin.index');
+        return to_route('admin.comics.index');
     }
 
     /**
@@ -52,7 +52,8 @@ class AdminController extends Controller
      */
     public function show(Comic $comic)
     {
-        return view('admin.details', ['comic' => $comic]);
+        //dd($comic);
+        return view('admin.comics.details', compact('comic'));
     }
 
     /**
