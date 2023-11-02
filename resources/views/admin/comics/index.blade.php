@@ -29,15 +29,19 @@
                             <td scope="row">{{$comic->id}}</td>
                             <td>
                                 
-                                <img width="100" src="{{ ($comic->thumb) }}" alt="">
+                                @if (str_contains($comic->thumb, 'http'))
+                                    <img width="100" class=" img-fluid" src="{{ $comic->thumb }}">
+                                @else
+                                    <img width="100" class=" img-fluid" src="{{asset('storage/' . $comic->thumb)}}" alt="">
+                                @endif
 
                             </td>
                             <td>{{$comic->title}}</td>
                             <td>
 
                                 <a href="{{route('comics.show', $comic->id)}}" class="btn btn-primary">View</a>
-
-                                /Edit/Delete
+                                <a href="{{route('comics.edit', $comic->id)}}" class="btn btn-secondary">Edit</a>
+                                /Delete
                             </td>
                         </tr>
                         @empty
