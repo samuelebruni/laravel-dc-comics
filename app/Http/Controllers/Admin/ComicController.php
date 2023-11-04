@@ -91,8 +91,12 @@ class ComicController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Comic $comic)
     {
-        //
+        if (!is_null($comic->thumb)) {
+            Storage::delete($comic->thumb);
+        }
+        $comic->delete();
+        return to_route('comics.index')->with('message', 'Il fumetto è stato eliminato correttamente ✅');
     }
 }
