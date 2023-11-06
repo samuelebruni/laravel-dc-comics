@@ -164,10 +164,21 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'title' => [
+            'required' => 'Il campo :attribute è necessario',
+
+            'min' => [
+                'string' => 'Il campo :attribute deve contenere minimo :min caratteri',
+            ],
+
+            'max' => [
+                'string' => 'Il campo :attribute non deve contenere più di :max caratteri',
+            ],
         ],
-    ],
+        'price' => [
+            'required' => 'Il campo :attribute è necessario'
+        ]
+        ],
 
     /*
     |--------------------------------------------------------------------------
