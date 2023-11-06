@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Comic;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\StoreComicRequest;
+use App\Http\Requests\UpdateComicRequest;
 
 
 class ComicController extends Controller
@@ -30,13 +32,15 @@ class ComicController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreComicRequest $request)
     {
-        $data = $request->all();
+        //$data = $request->all();
+        $validate_data = $request->validated();
         
         if ($request->has('thumb')) {
             $file_path = Storage::put('comics_thumbs', $request->thumb);
-            $data['thumb'] = $file_path;
+            //$data['thumb'] = $file_path;
+            $validate_data['thumb'] = $file_path;
         }
         
         /*$newComic = new Comic();
@@ -45,7 +49,7 @@ class ComicController extends Controller
         $newComic->thumb = $file_path;
         $newComic->save();*/
 
-        $comic = Comic::create($data);
+        $comic = Comic::create($validate_data);
 
         return to_route('comics.show', $comic);
     }
@@ -70,18 +74,20 @@ class ComicController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Comic $comic)
+    public function update(UpdateComicRequest $request, Comic $comic)
     {
         //dd($request->all());
-        $data = $request->all();
+        //$data = $request->all();
+        $validate_data = $request->validated();
 
         if ($request->has('thumb') && $comic->thumb) {
 
             Storage::delete($comic->thumb);
 
             $newImageFile = $request->thumb;
-            $path = Storage::put('sabers_images', $newImageFile);
-            $data['thumb'] = $path;
+            $path = Storage::put('comics_thumbs', $newImageFile);
+            //$data['thumb'] = $path;
+            $validate_data['thumb'] = $path;
         }
 
         $comic->update($data);

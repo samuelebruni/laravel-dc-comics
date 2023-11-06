@@ -5,6 +5,15 @@
 
 <div class="container">
 
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                <li> {{$error}} </li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <form action="{{route('comics.store')}}" method="POST" enctype="multipart/form-data">
 
@@ -12,15 +21,20 @@
         @csrf
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
-            <input type="text" class="form-control" name="title" id="title" aria-describedby="helpId" placeholder="Batman">
+            <input value="{{old('title')}}" type="text" class="form-control" name="title" id="title" aria-describedby="helpId" placeholder="Batman">
             <small id="titleHelper" class="form-text text-muted">Type the title here</small>
+            @error('title')
+                <div class="text-danger"> {{$message}} </div>
+            @enderror
         </div>
 
         <div class="mb-3">
             <label for="price" class="form-label">Price</label>
-            <input type="number" step="0.01" class="form-control" name="price" id="price" aria-describedby="helpId" placeholder="99.99">
+            <input value="{{old('price')}}" type="number" step="0.01" class="form-control" name="price" id="price" aria-describedby="helpId" placeholder="99.99">
             <small id="priceHelper" class="form-text text-muted">Type the price here</small>
-
+            @error('price')
+                <div class="text-danger"> {{$message}} </div>
+            @enderror
         </div>
 
         <div class="mb-3">
